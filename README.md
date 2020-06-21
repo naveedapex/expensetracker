@@ -1,3 +1,8 @@
+Project 1: Expense Tracker
+Url: http://react-expense-tracker-nav.surge.sh/
+Built using React hooks Api( Context, State, Reducer), Material UI
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
