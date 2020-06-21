@@ -31,8 +31,8 @@ function Balance() {
   }
   const balance = state.reduce(myFunc, 0);
 
-  const income = state.filter((i) => i.type == "income").reduce(myFunc, 0);
-  const expense = state.filter((i) => i.type == "expense").reduce(myFunc, 0);
+  const income = state.filter((i) => i.type === "income").reduce(myFunc, 0);
+  const expense = state.filter((i) => i.type === "expense").reduce(myFunc, 0);
   return (
     <div>
       <Card className="exp-container">

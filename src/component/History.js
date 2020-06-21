@@ -16,7 +16,7 @@ function History() {
           <ListItem
             key={record.id}
             className={
-              record.type == "income"
+              record.type === "income"
                 ? "history-item-income"
                 : "history-item-expense"
             }

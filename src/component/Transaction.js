@@ -81,7 +81,7 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
             onClick={() => {
-              if (amount != 0) {
+              if (amount !== 0) {
                 let uniqueId =
                   Math.random().toString(36).substring(2) +
                   Date.now().toString(36);
