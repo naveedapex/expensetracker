@@ -1,67 +1,45 @@
-
-import React, {useContext, useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import ExpenseReducer from './../reducer/ExpenseReducer';
-import ExpenseContext from '../ExpenseContext';
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import React, { useContext, useState } from "react";
+import ExpenseContext from "../ExpenseContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  small: {
+    fontSize: 8,
+  },
 }));
 
 export default function SignIn() {
   const classes = useStyles();
-  const {state,dispatch} = useContext(ExpenseContext);
+  const { dispatch } = useContext(ExpenseContext);
   const [desc, setDesc] = useState("");
   const [amount, setAmount] = useState(0);
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
         <Typography component="h1" variant="h5">
-          Add New Transaction
+          New Transaction
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
@@ -75,7 +53,7 @@ export default function SignIn() {
             autoComplete="description"
             autoFocus
             value={desc}
-            onChange={(e)=>{
+            onChange={(e) => {
               setDesc(e.target.value);
             }}
           />
@@ -89,50 +67,42 @@ export default function SignIn() {
             type="number"
             id="amount"
             autoComplete="amount"
-            value = {amount}
-            onChange={(e)=>{ 
-              console.log(e.target.value)
-                setAmount(e.target.value);
+            value={amount}
+            onChange={(e) => {
+              setAmount(e.target.value);
             }}
           />
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+          <Typography className={classes.small} gutterBottom>
+            Use -ve Amount for Expense
+          </Typography>
           <Button
-            
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={()=>{
-                if(amount!=0){
-                  dispatch({type:'ADD', payload:{id:state.length+1,type: amount>0?'Income':'expense', amount,  desc}});
-                }
-                
-                
-            }}          
+            onClick={() => {
+              if (amount != 0) {
+                let uniqueId =
+                  Math.random().toString(36).substring(2) +
+                  Date.now().toString(36);
+                dispatch({
+                  type: "ADD",
+                  payload: {
+                    id: uniqueId,
+                    type: amount > 0 ? "income" : "expense",
+                    amount,
+                    desc,
+                  },
+                });
+                setAmount(0);
+                setDesc("");
+              }
+            }}
           >
             Add Transaction
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid> */}
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
-
